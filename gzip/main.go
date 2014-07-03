@@ -1,25 +1,24 @@
 package main
 
 import (
-        "fmt"
-        "net/http"
-		"compress/gzip"
-		"strings"
+	"compress/gzip"
+	"fmt"
+	"net/http"
+	"strings"
 
-        "github.com/zenazn/goji"
+	"github.com/zenazn/goji"
 )
-
 
 func main() {
 
-		// use gzip handle for every request
-		goji.Use(gzipHandler)
+	// use gzip handle for every request
+	goji.Use(gzipHandler)
 
-        goji.Get("/", func(w http.ResponseWriter, r *http.Request){
-			fmt.Fprint(w, "helloworld..........")
-		})
+	goji.Get("/", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprint(w, "helloworld..........")
+	})
 
-        goji.Serve()
+	goji.Serve()
 }
 
 // gzip handler
@@ -49,6 +48,7 @@ func gzipHandler(h http.Handler) http.Handler {
 			return
 		}
 
+		// gzip content
 		w.Header().Set("Content-Encoding", "gzip")
 		w.Header().Set("Vary", "Accept-Encoding")
 		gw := gzip.NewWriter(w)
