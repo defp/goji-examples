@@ -18,6 +18,9 @@ func main() {
 	// cookie key is language, value is golang
 	goji.Get("/world", func(w http.ResponseWriter, r *http.Request) {
 		cookie := &http.Cookie{Name: "language", Value: "golang"}
+		// expire := time.Now().AddDate(0, 0, 1)
+		// cookie := &http.Cookie{Name: "language", Value: "golang", Expires: expire}
+
 		http.SetCookie(w, cookie)
 		fmt.Fprint(w, "world page")
 	})
